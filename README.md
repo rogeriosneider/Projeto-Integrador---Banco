@@ -27,7 +27,7 @@ O projeto tem como objetivo oferecer uma API para realizar operações básicas 
 1. Clone o repositório:
 
    ```
-   git clone https://github.com/seu-usuario/integracao-bank.git
+   git clone https://github.com/rogeriosneider/Projeto-integrador---banco.git
    ```
 
 2. Navegue até o diretório do projeto:
