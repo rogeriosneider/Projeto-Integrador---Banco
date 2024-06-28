@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Rogério Gama
+      changes:
+        - createTable:
+            tableName: conta
+            columns:
+              - column:
+                  name: numero
+                  type: BIGINT
+                  autoIncrement: true
+                  startWith: 1
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: saldo
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+                    checkConstraint: saldo >= 0
+              - column:
+                  name: data_criacao
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: situacao
+                  type: ENUM('ATIVA', 'BLOQUEADA', 'ENCERRADA')
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: Rogerio Gama
+      changes:
+        - createTable:
+            tableName: lancamento
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: protocolo
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: tp_operacao
+                  type: ENUM('CREDITO', 'DEBITO')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tp_lancamento
+                  type: ENUM('DEPOSITO', 'SAQUE', 'TRANSFERENCIA')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valor
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: data_hora
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: nr_conta
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: Rogerio Gama
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: lancamento
+            baseColumnNames: nr_conta
+            constraintName: fk_lancamento_conta
+            referencedTableName: conta
+            referencedColumnNames: numero
